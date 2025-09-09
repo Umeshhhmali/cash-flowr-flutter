@@ -11,12 +11,38 @@ class MyChart extends StatefulWidget {
 }
 
 class _MyChartState extends State<MyChart> {
-  @override
-  Widget build(BuildContext context) {
-    return BarChart(
-      mainBarData(),
-    );
-  }
+    @override
+    Widget build(BuildContext context) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "01 Jan 2025 - 01 Sep 2025", 
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 15.0),
+            child: Text(
+              "\$4500.00",   // <-- Title above chart
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+              ),
+            ),
+          ),
+          Expanded(
+            child: BarChart(
+              mainBarData(),
+            ),
+          ),
+        ],
+      );
+    }
 
   BarChartGroupData makeGroupData(int x, double y){
     return BarChartGroupData(
@@ -80,7 +106,7 @@ class _MyChartState extends State<MyChart> {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 38,
-            getTitlesWidget: getTiles,
+            getTitlesWidget: getTitles,
           )
         ),
         leftTitles: AxisTitles(
@@ -98,7 +124,8 @@ class _MyChartState extends State<MyChart> {
       barGroups: showingGroups(),
     );
   }
-  Widget getTiles(double value, TitleMeta meta){
+
+  Widget getTitles(double value, TitleMeta meta){
     const style = TextStyle(
       color: Colors.grey,
       fontWeight: FontWeight.bold,

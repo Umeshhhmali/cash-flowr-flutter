@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:cashflowr/pages/add_expense/view/add_expense.dart';
 import 'package:cashflowr/pages/home/views/main_screen.dart';
 import 'package:cashflowr/pages/stats/stats_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,30 +19,28 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      // ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadiusGeometry.vertical(top: Radius.circular(30)),
+        borderRadius:
+            const BorderRadius.vertical(top: Radius.circular(30)),
         child: BottomNavigationBar(
           currentIndex: index,
-          onTap: (value){
+          onTap: (value) {
             setState(() {
               index = value;
             });
           },
-          selectedItemColor: Theme.of(context).colorScheme.tertiary,
+          selectedItemColor: Colors.purple,
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           elevation: 3,
-          items: const[
+          items: const [
             BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidHouse,size: 28,),
+              icon: FaIcon(FontAwesomeIcons.solidHouse, size: 28),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.squarePollVertical,size: 28),
+              icon: FaIcon(FontAwesomeIcons.squarePollVertical, size: 28),
               label: "Stats",
             ),
           ],
@@ -50,7 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddExpense()),
+          );
+        },
         shape: const CircleBorder(),
         child: Container(
           width: 60,
@@ -63,15 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Theme.of(context).colorScheme.secondary,
                 Theme.of(context).colorScheme.primary,
               ],
-              transform: const GradientRotation( pi / 4 ),
-            )
+              transform: const GradientRotation(pi / 4),
+            ),
           ),
-          child: const Icon(CupertinoIcons.add)
-        )
+          child: const Icon(CupertinoIcons.add),
+        ),
       ),
-      body: index == 0
-        ? MainScreen()
-        :StatScreen(),
+      body: index == 0 ? const MainScreen() : const StatScreen(),
     );
   }
 }

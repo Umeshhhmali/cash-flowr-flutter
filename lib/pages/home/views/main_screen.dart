@@ -1,6 +1,7 @@
 import 'dart:math';
-
+import 'package:cashflowr/components/custom_drawer.dart';
 import 'package:cashflowr/data/data.dart';
+import 'package:cashflowr/pages/home/views/all_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,41 +10,47 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.amber,
-                          ),
-                        ),
-                        Text(
-                          "🧑🏻",
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        )
-                        // Icon(
-                        //   CupertinoIcons.person_fill,
-                        //   color: Colors.amber.shade800,
-                        // )
-                      ],
-                    ),
-                    const SizedBox(width: 8),
-                    Column(
+    return Scaffold(
+      drawer: const CustomDrawer(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Column(
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Builder(
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.amber,
+                                  ),
+                                ),
+                                const Text(
+                                  "🧑🏻",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -64,248 +71,274 @@ class MainScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                    ]
-                ),
-                IconButton(onPressed: (){} ,icon: Icon(CupertinoIcons.settings)),
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width/2,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.secondary,
-                    Theme.of(context).colorScheme.tertiary,
-                  ],
-                  transform: const GradientRotation( pi / 4 ),
-                ),
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 4,
-                    color: Colors.grey.shade400,
-                    offset: const Offset(5, 5)
-                  )
-                ]
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Total Balance",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600
-                    ),
+                    ],
                   ),
-                  SizedBox(height: 12),                  
-                  Text(
-                    "\$ 4800.00",
-                    style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(CupertinoIcons.settings),
                   ),
-                  SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                color: Colors.white30,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  CupertinoIcons.arrow_down,
-                                  size: 12,
-                                  color: Colors.greenAccent,
-                                )
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Income",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                                Text(
-                                  "\$ 8800.00",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                color: Colors.white30,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  CupertinoIcons.arrow_down,
-                                  size: 12,
-                                  color: Colors.redAccent,
-                                )
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Expense",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                                Text(
-                                  "\$ 4000.00",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
                 ],
               ),
-            ),
-            SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Transactions",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.bold
+
+              const SizedBox(height: 20),
+
+              // Balance Card
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width / 2,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(context).colorScheme.tertiary,
+                    ],
+                    transform: const GradientRotation(pi / 4),
                   ),
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Colors.grey.shade400,
+                      offset: const Offset(5, 5),
+                    )
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    
-                  },
-                  child: Text(
-                    "View All",
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Total Balance",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "\$ 4800.00", // placeholder
+                      style: TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Income
+                          Row(
+                            children: [
+                              Container(
+                                width: 25,
+                                height: 25,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white30,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    CupertinoIcons.arrow_down,
+                                    size: 12,
+                                    color: Colors.greenAccent,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Income",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(
+                                    "\$ 8800.00",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          // Expense
+                          Row(
+                            children: [
+                              Container(
+                                width: 25,
+                                height: 25,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white30,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    CupertinoIcons.arrow_down,
+                                    size: 12,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Expense",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(
+                                    "\$ 4000.00",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
+              // Transactions Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Transactions",
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.outline,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: transactionData.length,
-                itemBuilder: (context,int i){
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TransactionsPage()),
+                      );
+                    },
+                    child: Text(
+                      "View All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.outline,
+                        fontWeight: FontWeight.w400,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: transactionData[i]['color'],
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    transactionData[i]['icon'],
-                                  ],
-                                ),
-                                SizedBox(width: 12,),
-                                Text(
-                                  transactionData[i]['name'],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                  Text(
-                                  transactionData[i]['totalAmount'],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                Text(
-                                  transactionData[i]['date'],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Theme.of(context).colorScheme.outline,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: transactionData.length,
+                  itemBuilder: (context, i) {
+                    final transaction = transactionData[i];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
                             )
                           ],
                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: transaction['color'],
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      transaction['icon'], // dynamic icon
+                                    ],
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Text(
+                                    transaction['name'], // dynamic name
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    transaction['totalAmount'], // dynamic amount
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(
+                                    transaction['date'], // dynamic date
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Theme.of(context).colorScheme.outline,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  );
-                }
+                    );
+                  },
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
